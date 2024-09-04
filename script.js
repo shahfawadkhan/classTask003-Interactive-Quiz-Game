@@ -52,43 +52,73 @@ const questions = [
 ];
 
 let questionIndex = 0;
+let marks = 0;
 
 function showQuestion(){
-    let QuestionArea = document.querySelector(".question h2");
+    let questionArea = document.querySelector(".question h2");
     let optionsArea = document.querySelectorAll(".btn");
 
-    QuestionArea.textContent = questions[questionIndex].question;
+    questionArea.textContent = questions[questionIndex].question;
     for(let i=0 ; i<optionsArea.length; i++){
         optionsArea[i].textContent = questions[questionIndex].options[i];
     }
-    // questionIndex=++;
 }
 showQuestion();
 
+const quizGame = document.querySelector(".quiz-game");
 const nextQuestion = document.getElementById("next-btn");
 let restartBtn =  document.getElementById("restart");
+// Moving to next question
 
 nextQuestion.addEventListener("click" , moveToNextQuestion);
 function moveToNextQuestion(){
+    for(let i = 0 ; i<optionsArea.length ; i++){
+        optionsArea[i].style.backgroundColor = '';
+    
+    }
     questionIndex++;
     if(questionIndex<questions.length){
        showQuestion();
     }
     else{
-        alert('quiz completed')
-       
+        alert(`Quiz completed Your marks are ${marks} out of ${questions.length}`)
        restartBtn.style.display = 'block';
        nextQuestion.style.display = 'none';
-       
+          
     }
 }
+
+//for quiz restarting
 restartBtn.addEventListener('click' , restartQuiz);
 function restartQuiz(){
+    marks = 0;
     alert('Quiz Restarted')
     restartBtn.style.display = 'none';
     nextQuestion.style.display = 'block';
     questionIndex = 0;
     if(questionIndex<questions.length){
        showQuestion();
+    }
+}
+let optionsArea = document.querySelectorAll(".btn");
+
+
+for (let i = 0; i < optionsArea.length; i++) {
+    optionsArea[i].addEventListener('click', buttonClicked);
+}
+
+
+function buttonClicked(){
+    let correctAnswer = questions[questionIndex].answer;
+    let selectedAnswer = this.textContent;
+    console.log(selectedAnswer)
+    if(selectedAnswer === correctAnswer){
+        console.log('corrrectt')
+        this.style.backgroundColor = 'green';
+        marks++;
+        console.log(marks)
+    }
+    else{
+        this.style.backgroundColor = 'red';
     }
 }
