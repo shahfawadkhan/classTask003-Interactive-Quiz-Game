@@ -50,3 +50,16 @@ const questions = [
         answer: "text-transform: capitalize;"
     }
 ];
+
+let questionIndex = 0;
+
+function showQuestion(){
+    let QuestionArea = document.querySelector(".question h2");
+    let optionsArea = document.querySelectorAll(".btn");
+
+    QuestionArea.textContent = questions[questionIndex].question;
+    for(let i=0 ; i<optionsArea.length; i++){
+        optionsArea[i].textContent = questions[questionIndex].options[i];
+    }
+}
+showQuestion();
