@@ -66,21 +66,25 @@ function showQuestion(){
 showQuestion();
 
 const nextQuestion = document.getElementById("next-btn");
-
+let restartBtn =  document.getElementById("restart");
 nextQuestion.addEventListener("click" , moveToNextQuestion);
 function moveToNextQuestion(){
     questionIndex++;
     if(questionIndex<questions.length){
-        let QuestionArea = document.querySelector(".question h2");
-    let optionsArea = document.querySelectorAll(".btn");
-
-    QuestionArea.textContent = questions[questionIndex].question;
-    for(let i=0 ; i<optionsArea.length; i++){
-        optionsArea[i].textContent = questions[questionIndex].options[i];
-    }
+       showQuestion();
     }
     else{
-        
         alert('quiz completed')
+       
+       restartBtn.style.display = 'block';
+       nextQuestion.style.display = 'none';
+       
+    }
+}
+restartBtn.addEventListener('click' , restartQuiz);
+function restartQuiz(){
+    questionIndex++;
+    if(questionIndex<questions.length){
+       showQuestion();
     }
 }

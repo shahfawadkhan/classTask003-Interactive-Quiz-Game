@@ -16,6 +16,7 @@ body{
     background: white;
     width: 400px;
     border-radius: 15px;
+    height: fit-content
 }
 .quiz-game>h1{
     text-align: center;
@@ -36,7 +37,7 @@ body{
     background-color: white;
     text-align: left;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 15px;
 }
 .btn:hover{
     background-color: #00749E;
@@ -47,8 +48,18 @@ body{
     color: white;
     padding: .5rem 3rem;
     border: none;
-    
+    font-size: large;
     display: block;
     margin: 0% auto;
     margin-bottom: 10px;
+}
+#restart{
+    background-color: #00749E;
+    color: white;
+    padding: .5rem 3rem;
+    border: none;
+    margin: 0% auto;
+    margin-bottom: 10px; 
+    font-size: large;
+    display: none;
 }
