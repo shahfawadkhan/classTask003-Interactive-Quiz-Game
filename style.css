@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     transition: .3s;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
     background: blue;
@@ -14,10 +15,22 @@ body{
 .quiz-game{
     background: white;
     width: 400px;
+    border-radius: 15px;
+}
+.quiz-game>h1{
+    text-align: center;
+    margin: 10px;
+}
+.question{
+    margin-top: 10px;
+    border-bottom: 1px solid blue;
+    padding-bottom: 20px;
+    margin: 20px;
 }
 .btn{
-    width: 100%;
+    width: 90%;
     padding: 10px;
-    margin: 10px 0;
-    border: none;
+    margin: 10px 20px;
+    border: 1px solid grey;
+    background-color: white;
 }
