@@ -42,3 +42,13 @@ body{
     background-color: #00749E;
     color: white;
 }
+#next-btn{
+    background-color: #00749E;
+    color: white;
+    padding: .5rem 3rem;
+    border: none;
+    
+    display: block;
+    margin: 0% auto;
+    margin-bottom: 10px;
+}
