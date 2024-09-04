@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: .3s;
+}
+body{
+    background: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.quiz-game{
+    background: white;
+    width: 400px;
+}
+.btn{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+}
