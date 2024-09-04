@@ -82,6 +82,9 @@ function moveToNextQuestion(){
     }
     else{
         alert(`Quiz completed Your marks are ${marks} out of ${questions.length}`)
+        document.querySelector('.answers').style.display = 'none';
+
+        
        restartBtn.style.display = 'block';
        nextQuestion.style.display = 'none';
           
@@ -91,6 +94,8 @@ function moveToNextQuestion(){
 //for quiz restarting
 restartBtn.addEventListener('click' , restartQuiz);
 function restartQuiz(){
+    
+    document.querySelector('.answers').style.display = 'block';
     marks = 0;
     alert('Quiz Restarted')
     restartBtn.style.display = 'none';

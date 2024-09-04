@@ -23,6 +23,7 @@ body{
     margin: 10px;
     border-bottom: 1px solid #00749E;
     padding-bottom: 20px;
+    position: relative;
 }
 .question{
     /* margin-top: 10px; */
