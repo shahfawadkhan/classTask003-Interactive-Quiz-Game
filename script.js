@@ -67,6 +67,7 @@ showQuestion();
 
 const nextQuestion = document.getElementById("next-btn");
 let restartBtn =  document.getElementById("restart");
+
 nextQuestion.addEventListener("click" , moveToNextQuestion);
 function moveToNextQuestion(){
     questionIndex++;
@@ -83,7 +84,10 @@ function moveToNextQuestion(){
 }
 restartBtn.addEventListener('click' , restartQuiz);
 function restartQuiz(){
-    questionIndex++;
+    alert('Quiz Restarted')
+    restartBtn.style.display = 'none';
+    nextQuestion.style.display = 'block';
+    questionIndex = 0;
     if(questionIndex<questions.length){
        showQuestion();
     }
