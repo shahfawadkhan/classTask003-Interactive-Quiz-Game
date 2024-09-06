@@ -52,78 +52,108 @@ const questions = [
 ];
 
 let questionIndex = 0;
-let marks = 0;
+let score = 0;
+const questionArea = document.querySelector(".question > h2");
+const optionArea = document.querySelectorAll(".btn")
+// console.log(questionArea)
+//initialize quize
 
-function showQuestion(){
-    let questionArea = document.querySelector(".question h2");
-    let optionsArea = document.querySelectorAll(".btn");
+function intializeQuize(){
+
+    for(let i = 0 ; i<optionArea.length ; i++){
+        optionArea[i].style.backgroundColor = '';
+        optionArea[i].style.color = '';
+    }
 
     questionArea.textContent = questions[questionIndex].question;
-    for(let i=0 ; i<optionsArea.length; i++){
-        optionsArea[i].textContent = questions[questionIndex].options[i];
+    for(let i = 0 ; i<optionArea.length ; i++){
+        optionArea[i].textContent = questions[questionIndex].options[i];
     }
 }
-showQuestion();
+intializeQuize()
+//moving to next Question
+let quizGame = document.querySelector(".quiz-game")
+let restartBtn = document.querySelector("#restart")
+const nextBtn = document.getElementById("next-btn");
 
-const quizGame = document.querySelector(".quiz-game");
-const nextQuestion = document.getElementById("next-btn");
-let restartBtn =  document.getElementById("restart");
-// Moving to next question
+let result = document.createElement("div");
+let resultText = document.createElement("h1")
+resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
+result.appendChild(resultText);
+result.style.backgroundColor= 'white';
+result.style.padding = '40px';
+result.style.borderRadius = '40px'
+result.style.display = 'none';
+result.appendChild(restartBtn)
+document.body.appendChild(result)
 
-nextQuestion.addEventListener("click" , moveToNextQuestion);
+nextBtn.addEventListener("click" , moveToNextQuestion);
 function moveToNextQuestion(){
-    for(let i = 0 ; i<optionsArea.length ; i++){
-        optionsArea[i].style.backgroundColor = '';
-    
+
+    for (let i = 0; i < optionArea.length; i++) {
+        optionArea[i].disabled = false; // Disable the button or option
     }
+
     questionIndex++;
-    if(questionIndex<questions.length){
-       showQuestion();
+    if(questionIndex < questions.length){
+        intializeQuize();
     }
     else{
-        alert(`Quiz completed Your marks are ${marks} out of ${questions.length}`)
-        document.querySelector('.answers').style.display = 'none';
-
-        
-       restartBtn.style.display = 'block';
-       nextQuestion.style.display = 'none';
-          
+        alert('quiz Ended');
+        quizGame.style.display = 'none';
+        result.style.display = 'block'
+        restartBtn.style.display = 'block'
     }
 }
 
-//for quiz restarting
-restartBtn.addEventListener('click' , restartQuiz);
-function restartQuiz(){
-    
-    document.querySelector('.answers').style.display = 'block';
-    marks = 0;
-    alert('Quiz Restarted')
-    restartBtn.style.display = 'none';
-    nextQuestion.style.display = 'block';
+restartBtn.addEventListener("click" , quizRestart);
+function quizRestart(){
+    score = 0;
     questionIndex = 0;
-    if(questionIndex<questions.length){
-       showQuestion();
-    }
-}
-let optionsArea = document.querySelectorAll(".btn");
-
-
-for (let i = 0; i < optionsArea.length; i++) {
-    optionsArea[i].addEventListener('click', buttonClicked);
+    quizGame.style.display = 'block';
+    result.style.display = 'none'
+    intializeQuize()
 }
 
+for(let i=0;i<optionArea.length;i++){
+    optionArea[i].addEventListener("click" , optionClicked);
+}
 
-function buttonClicked(){
+// let correctAudio = document.getElementById("correct");
+// let wrongAudio = d
+
+function optionClicked(){
     let correctAnswer = questions[questionIndex].answer;
     let selectedAnswer = this.textContent;
-    console.log(selectedAnswer)
-    if(selectedAnswer === correctAnswer){
-        console.log('corrrectt')
-        this.style.backgroundColor = 'green';
-        marks++;
-        console.log(marks)
-    }
+    if(correctAnswer === selectedAnswer){
+        score++;
+        this.style.backgroundColor = 'green'
+        this.style.color = 'white'
+        this.innerHTML += ' ✔';
+        resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
+        // console.log(resultText)
+        disableOptions()
+        // console.log(score)
+    }  
     else{
         this.style.backgroundColor = 'red';
+        this.style.color = 'white';
+        this.innerHTML += ' ✖';
+        for (let i = 0 ; i<optionArea.length;i++){
+            if(optionArea[i].textContent === questions[questionIndex].answer){
+                optionArea[i].style.backgroundColor = 'green';
+                optionArea[i].style.color = 'white';
+                optionArea[i].innerHTML += ' ✔';
+                      }
+        }
+        disableOptions()
+    }
+    
+}
+
+function disableOptions() {
+    for (let i = 0; i < optionArea.length; i++) {
+        optionArea[i].disabled = true; // Disable the button or option
     }
 }
+// console.log(score)
