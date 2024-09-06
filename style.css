@@ -6,7 +6,7 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
-    background: #00749E;
+    background: #16325B;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,10 +20,12 @@ body{
 }
 .quiz-game>h1{
     text-align: center;
-    margin: 10px;
-    border-bottom: 1px solid #00749E;
+    /* margin: 10px; */
+    border-bottom: 3px solid #00749E;
     padding-bottom: 20px;
     position: relative;
+    color: #16325B;
+    /* background-color: #797e84b1; */
 }
 .question{
     /* margin-top: 10px; */
@@ -44,12 +46,12 @@ body{
     border-radius: 5px;
     font-size: 15px;
 }
-.btn:hover{
-    background-color: #00749E;
+/* .btn:hover{
+    background-color: #16325B;
     color: white;
-}
+} */
 #next-btn{
-    background-color: #00749E;
+    background-color: #16325B;
     color: white;
     padding: .5rem 3rem;
     border: none;
@@ -59,7 +61,7 @@ body{
     margin-bottom: 10px;
 }
 #restart{
-    background-color: #00749E;
+    background-color: #16325B;
     color: white;
     padding: .5rem 3rem;
     border: none;

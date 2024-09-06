@@ -77,8 +77,9 @@ let restartBtn = document.querySelector("#restart")
 const nextBtn = document.getElementById("next-btn");
 
 let result = document.createElement("div");
-let resultText = document.createElement("h1")
-resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
+let resultText = document.createElement("h1");
+resultText.style.color = '#16325B'
+// resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
 result.appendChild(resultText);
 result.style.backgroundColor= 'white';
 result.style.padding = '40px';
@@ -106,6 +107,7 @@ function moveToNextQuestion(){
     }
 }
 
+
 restartBtn.addEventListener("click" , quizRestart);
 function quizRestart(){
     score = 0;
@@ -119,8 +121,8 @@ for(let i=0;i<optionArea.length;i++){
     optionArea[i].addEventListener("click" , optionClicked);
 }
 
-// let correctAudio = document.getElementById("correct");
-// let wrongAudio = d
+let correctSound = document.getElementById("correct");
+let wrongSound = document.getElementById("wrong");
 
 function optionClicked(){
     let correctAnswer = questions[questionIndex].answer;
@@ -130,6 +132,7 @@ function optionClicked(){
         this.style.backgroundColor = 'green'
         this.style.color = 'white'
         this.innerHTML += ' ✔';
+        correctSound.play()
         resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
         // console.log(resultText)
         disableOptions()
@@ -139,12 +142,14 @@ function optionClicked(){
         this.style.backgroundColor = 'red';
         this.style.color = 'white';
         this.innerHTML += ' ✖';
+        wrongSound.play();
+
         for (let i = 0 ; i<optionArea.length;i++){
             if(optionArea[i].textContent === questions[questionIndex].answer){
                 optionArea[i].style.backgroundColor = 'green';
                 optionArea[i].style.color = 'white';
                 optionArea[i].innerHTML += ' ✔';
-                      }
+            }
         }
         disableOptions()
     }
@@ -153,7 +158,23 @@ function optionClicked(){
 
 function disableOptions() {
     for (let i = 0; i < optionArea.length; i++) {
-        optionArea[i].disabled = true; // Disable the button or option
+        optionArea[i].disabled = true; 
+       
+        optionArea[i].style.color = 'black';
     }
 }
 // console.log(score)
+for(let i=0;i<optionArea.length;i++){
+    optionArea[i].addEventListener('mouseover' , hoverOnbtn);
+    optionArea[i].addEventListener('mouseout' , mouseOut);
+}
+function hoverOnbtn(){
+    this.style.backgroundColor = '#16325B'
+    this.style.color = 'white';
+}
+function mouseOut(){
+    this.style.backgroundColor = '';
+    this.style.color = '';
+}
+
+
