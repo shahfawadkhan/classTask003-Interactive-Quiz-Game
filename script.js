@@ -92,7 +92,9 @@ nextBtn.addEventListener("click" , moveToNextQuestion);
 function moveToNextQuestion(){
 
     for (let i = 0; i < optionArea.length; i++) {
-        optionArea[i].disabled = false; // Disable the button or option
+        optionArea[i].disabled = false;
+        optionArea[i].classList.remove('important1');
+        optionArea[i].classList.remove('important2');
     }
 
     questionIndex++;
@@ -132,16 +134,25 @@ function optionClicked(){
         this.style.backgroundColor = 'green'
         this.style.color = 'white'
         this.innerHTML += ' ✔';
+        this.classList.add('important1')
+        // this.style.setProperty('color', 'white', 'important');
         correctSound.play()
         resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
         // console.log(resultText)
-        disableOptions()
+        disableOptions();
+        for (let i = 0; i < optionArea.length; i++) {
+            optionArea[i].removeEventListener('mouseover', hoverOnbtn);
+        optionArea[i].removeEventListener('mouseout', mouseOut);
+        }
+        
         // console.log(score)
     }  
     else{
+
         this.style.backgroundColor = 'red';
         this.style.color = 'white';
         this.innerHTML += ' ✖';
+        this.classList.add('important2')
         wrongSound.play();
 
         for (let i = 0 ; i<optionArea.length;i++){
@@ -149,6 +160,7 @@ function optionClicked(){
                 optionArea[i].style.backgroundColor = 'green';
                 optionArea[i].style.color = 'white';
                 optionArea[i].innerHTML += ' ✔';
+                optionArea[i].classList.add('important1')
             }
         }
         disableOptions()
@@ -164,10 +176,7 @@ function disableOptions() {
     }
 }
 // console.log(score)
-for(let i=0;i<optionArea.length;i++){
-    optionArea[i].addEventListener('mouseover' , hoverOnbtn);
-    optionArea[i].addEventListener('mouseout' , mouseOut);
-}
+
 function hoverOnbtn(){
     this.style.backgroundColor = '#16325B'
     this.style.color = 'white';
@@ -178,3 +187,11 @@ function mouseOut(){
 }
 
 
+document.addEventListener('keydown', handleKeyPress);
+
+function handleKeyPress(event) {
+    const keyPressed = event.key;
+    const optionIndex = parseInt(keyPressed) - 1;
+    if (optionIndex >= 0 && optionIndex < optionArea.length) {
+        optionArea[optionIndex].click();
+    }}
