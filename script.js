@@ -52,48 +52,46 @@ const questions = [
 ];
 
 let questionIndex = 0;
-let score = 0;
+let marks = 0;
 const questionArea = document.querySelector(".question > h2");
-const optionArea = document.querySelectorAll(".btn")
-// console.log(questionArea)
-//initialize quize
+const optionArea = document.querySelectorAll(".btn");
 
-function intializeQuize(){
-
-    for(let i = 0 ; i<optionArea.length ; i++){
+function intializeQuize() {
+    for (let i = 0; i < optionArea.length; i++) {
         optionArea[i].style.backgroundColor = '';
         optionArea[i].style.color = '';
     }
 
     questionArea.textContent = questions[questionIndex].question;
-    for(let i = 0 ; i<optionArea.length ; i++){
+    for (let i = 0; i < optionArea.length; i++) {
         optionArea[i].textContent = questions[questionIndex].options[i];
     }
 }
-intializeQuize()
-//moving to next Question
-let quizGame = document.querySelector(".quiz-game")
-let restartBtn = document.querySelector("#restart")
+intializeQuize();
+
+
+let quizGame = document.querySelector(".quiz-game");
+let restartBtn = document.querySelector("#restart");
 const nextBtn = document.getElementById("next-btn");
 
 let result = document.createElement("div");
 let resultText = document.createElement("h1");
-resultText.style.color = '#16325B'
-// resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
+resultText.style.color = '#16325B';
 result.appendChild(resultText);
-result.style.backgroundColor= 'white';
+result.style.backgroundColor = 'white';
 result.style.padding = '40px';
-result.style.borderRadius = '40px'
+result.style.borderRadius = '40px';
 result.style.display = 'none';
-result.appendChild(restartBtn)
-document.body.appendChild(result)
+result.appendChild(restartBtn);
+document.body.appendChild(result);
 
-nextBtn.addEventListener("click" , moveToNextQuestion);
-function moveToNextQuestion(){
+// moving to nextttt questionn
+nextBtn.addEventListener("click", moveToNextQuestion);
 
+function moveToNextQuestion() {
     for (let i = 0; i < optionArea.length; i++) {
         optionArea[i].addEventListener('mouseover', hoverOnbtn);
-    optionArea[i].addEventListener('mouseout', mouseOut);
+        optionArea[i].addEventListener('mouseout', mouseOut);
     }
 
     for (let i = 0; i < optionArea.length; i++) {
@@ -103,100 +101,96 @@ function moveToNextQuestion(){
     }
 
     questionIndex++;
-    if(questionIndex < questions.length){
+    if (questionIndex < questions.length) {
         intializeQuize();
-    }
-    else{
-        alert('quiz Ended');
+    } else {
+        // Show the result and marks when quiz ends
         quizGame.style.display = 'none';
-        result.style.display = 'block'
-        restartBtn.style.display = 'block'
+        resultText.textContent = `Your marks are ${marks} out of ${questions.length}`;
+        result.style.display = 'block';
+        restartBtn.style.display = 'block';
     }
 }
 
 
-restartBtn.addEventListener("click" , quizRestart);
-function quizRestart(){
-    score = 0;
-    questionIndex = 0;
+// restarting quiz
+
+
+restartBtn.addEventListener("click", quizRestart);
+
+function quizRestart() {
     quizGame.style.display = 'block';
-    result.style.display = 'none'
-    intializeQuize()
+    marks = 0; 
+    questionIndex = 0; 
+    result.style.display = 'none'; 
+    intializeQuize(); 
 }
 
-for(let i=0;i<optionArea.length;i++){
-    optionArea[i].addEventListener("click" , optionClicked);
+for (let i = 0; i < optionArea.length; i++) {
+    optionArea[i].addEventListener("click", optionClicked);
 }
 
 let correctSound = document.getElementById("correct");
 let wrongSound = document.getElementById("wrong");
 
-function optionClicked(){
+function optionClicked() {
     let correctAnswer = questions[questionIndex].answer;
     let selectedAnswer = this.textContent;
-    if(correctAnswer === selectedAnswer){
-        score++;
-        this.style.backgroundColor = 'green'
-        this.style.color = 'white'
+
+    if (correctAnswer === selectedAnswer) {
+        marks++; 
+        this.style.backgroundColor = 'green';
+        this.style.color = 'white';
         this.innerHTML += ' ✔';
-        this.classList.add('important1')
-        // this.style.setProperty('color', 'white', 'important');
-        correctSound.play()
-        resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
-        // console.log(resultText)
+        this.classList.add('important1');
+        correctSound.play();
         disableOptions();
-        // console.log(score)
         for (let i = 0; i < optionArea.length; i++) {
             optionArea[i].removeEventListener('mouseover', hoverOnbtn);
-        optionArea[i].removeEventListener('mouseout', mouseOut);
+            optionArea[i].removeEventListener('mouseout', mouseOut);
         }
-    }  
-    else{
-
+    } else {
         this.style.backgroundColor = 'red';
         this.style.color = 'white';
         this.innerHTML += ' ✖';
-        this.classList.add('important2')
+        this.classList.add('important2');
         wrongSound.play();
 
-        for (let i = 0 ; i<optionArea.length;i++){
+        for (let i = 0; i < optionArea.length; i++) {
             optionArea[i].removeEventListener('mouseover', hoverOnbtn);
-        optionArea[i].removeEventListener('mouseout', mouseOut);
-            if(optionArea[i].textContent === questions[questionIndex].answer){
+            optionArea[i].removeEventListener('mouseout', mouseOut);
+            if (optionArea[i].textContent === questions[questionIndex].answer) {
                 optionArea[i].style.backgroundColor = 'green';
                 optionArea[i].style.color = 'white';
                 optionArea[i].innerHTML += ' ✔';
                 optionArea[i].classList.add('important1');
-
             }
         }
-        disableOptions()
+        disableOptions();
     }
-    
 }
 
 function disableOptions() {
     for (let i = 0; i < optionArea.length; i++) {
-        optionArea[i].disabled = true; 
-       
+        optionArea[i].disabled = true;
         optionArea[i].style.color = 'black';
     }
 }
-// console.log(score)
+
 for (let i = 0; i < optionArea.length; i++) {
     optionArea[i].addEventListener('mouseover', hoverOnbtn);
-optionArea[i].addEventListener('mouseout', mouseOut);
+    optionArea[i].addEventListener('mouseout', mouseOut);
 }
 
-function hoverOnbtn(){
-    this.style.backgroundColor = '#16325B'
+function hoverOnbtn() {
+    this.style.backgroundColor = '#16325B';
     this.style.color = 'white';
 }
-function mouseOut(){
+
+function mouseOut() {
     this.style.backgroundColor = '';
     this.style.color = '';
 }
-
 
 document.addEventListener('keydown', handleKeyPress);
 
@@ -205,4 +199,5 @@ function handleKeyPress(event) {
     const optionIndex = parseInt(keyPressed) - 1;
     if (optionIndex >= 0 && optionIndex < optionArea.length) {
         optionArea[optionIndex].click();
-    }}
+    }
+}

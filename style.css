@@ -72,16 +72,6 @@ body{
     display: none;
     margin-top: 30px;
 }
-.userName{
-    /* display: none; */
-    padding: 30px;
-    background-color: white;
-    color: #16325B;
-}
-.userName h3 ,input{
-    margin: 30px;
-}
-
 .important1{
     color: white !important;;
     background-color: green !important;
@@ -92,10 +82,18 @@ body{
     background-color: red !important;
     
 }
+/* .userNameContainer{
+    display: block;
+    background-color: white;
+    padding: 30px;
+}
+.userName h3 ,input{
+    margin: 30px;
+} */
 
 @media (max-width: 400px) {
     .quiz-game {
-        width: 100%; 
+        width: 95%; 
         padding: 10px; 
     }
 
