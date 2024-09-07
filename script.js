@@ -53,8 +53,8 @@ const questions = [
 
 let questionIndex = 0;
 let marks = 0;
-const questionArea = document.querySelector(".question > h2");
-const optionArea = document.querySelectorAll(".btn");
+let questionArea = document.querySelector(".question > h2");
+let optionArea = document.querySelectorAll(".btn");
 
 function intializeQuize() {
     for (let i = 0; i < optionArea.length; i++) {
@@ -74,21 +74,14 @@ let quizGame = document.querySelector(".quiz-game");
 let restartBtn = document.querySelector("#restart");
 const nextBtn = document.getElementById("next-btn");
 
-let result = document.createElement("div");
-let resultText = document.createElement("h1");
-resultText.style.color = '#16325B';
-result.appendChild(resultText);
-result.style.backgroundColor = 'white';
-result.style.padding = '40px';
-result.style.borderRadius = '40px';
-result.style.display = 'none';
-result.appendChild(restartBtn);
-document.body.appendChild(result);
-
 // moving to nextttt questionn
+
+let resultSection = document.querySelector('.resultSection');
+let resultText = document.querySelector('.resultSection h1')
 nextBtn.addEventListener("click", moveToNextQuestion);
 
 function moveToNextQuestion() {
+    
     for (let i = 0; i < optionArea.length; i++) {
         optionArea[i].addEventListener('mouseover', hoverOnbtn);
         optionArea[i].addEventListener('mouseout', mouseOut);
@@ -100,15 +93,16 @@ function moveToNextQuestion() {
         optionArea[i].classList.remove('important2');
     }
 
-    questionIndex++;
+    
     if (questionIndex < questions.length) {
         intializeQuize();
     } else {
-        // Show the result and marks when quiz ends
+      
         quizGame.style.display = 'none';
-        resultText.textContent = `Your marks are ${marks} out of ${questions.length}`;
-        result.style.display = 'block';
-        restartBtn.style.display = 'block';
+        // resultText.textContent = `Your marks are ${marks} out of ${questions.length}`;
+        resultSection.style.display = 'block';
+        resultText.textContent = `Your marks are ${marks} / ${questions.length}`
+        // restartBtn.style.display = 'block';
     }
 }
 
@@ -120,9 +114,9 @@ restartBtn.addEventListener("click", quizRestart);
 
 function quizRestart() {
     quizGame.style.display = 'block';
+    resultSection.style.display = 'none'; 
     marks = 0; 
     questionIndex = 0; 
-    result.style.display = 'none'; 
     intializeQuize(); 
 }
 
@@ -133,11 +127,14 @@ for (let i = 0; i < optionArea.length; i++) {
 let correctSound = document.getElementById("correct");
 let wrongSound = document.getElementById("wrong");
 
+var obj = this;
+console.log(this)
 function optionClicked() {
     let correctAnswer = questions[questionIndex].answer;
     let selectedAnswer = this.textContent;
-
+    
     if (correctAnswer === selectedAnswer) {
+        // questionIndex++;
         marks++; 
         this.style.backgroundColor = 'green';
         this.style.color = 'white';
@@ -150,6 +147,7 @@ function optionClicked() {
             optionArea[i].removeEventListener('mouseout', mouseOut);
         }
     } else {
+        // questionIndex++;
         this.style.backgroundColor = 'red';
         this.style.color = 'white';
         this.innerHTML += ' ✖';
@@ -159,6 +157,7 @@ function optionClicked() {
         for (let i = 0; i < optionArea.length; i++) {
             optionArea[i].removeEventListener('mouseover', hoverOnbtn);
             optionArea[i].removeEventListener('mouseout', mouseOut);
+
             if (optionArea[i].textContent === questions[questionIndex].answer) {
                 optionArea[i].style.backgroundColor = 'green';
                 optionArea[i].style.color = 'white';
@@ -166,8 +165,10 @@ function optionClicked() {
                 optionArea[i].classList.add('important1');
             }
         }
+        
         disableOptions();
     }
+    questionIndex++;
 }
 
 function disableOptions() {

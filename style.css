@@ -71,9 +71,10 @@ body{
     padding: .5rem 3rem;
     border: none;
     margin: 0% auto;
+    display: block;
     margin-bottom: 10px; 
     font-size: large;
-    display: none;
+    /* display: none; */
     margin-top: 30px;
 }
 .important1{
@@ -86,14 +87,18 @@ body{
     background-color: red !important;
     
 }
-/* .userNameContainer{
-    display: block;
+
+.resultSection{
+    width: 400px;
     background-color: white;
-    padding: 30px;
+    color: #16325B;
+    display: none;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+
 }
-.userName h3 ,input{
-    margin: 30px;
-} */
+
 
 @media (max-width: 400px) {
     .quiz-game {
