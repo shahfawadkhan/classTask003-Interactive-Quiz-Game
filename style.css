@@ -20,12 +20,16 @@ body{
     /* display: none; */
 }
 .quiz-game>h1{
-    text-align: center;
+    
     /* margin: 10px; */
     border-bottom: 3px solid #00749E;
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
+    padding: 20px;
     position: relative;
     color: #16325B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* background-color: #797e84b1; */
 }
 .question{
