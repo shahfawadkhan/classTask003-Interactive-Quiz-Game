@@ -92,6 +92,11 @@ nextBtn.addEventListener("click" , moveToNextQuestion);
 function moveToNextQuestion(){
 
     for (let i = 0; i < optionArea.length; i++) {
+        optionArea[i].addEventListener('mouseover', hoverOnbtn);
+    optionArea[i].addEventListener('mouseout', mouseOut);
+    }
+
+    for (let i = 0; i < optionArea.length; i++) {
         optionArea[i].disabled = false;
         optionArea[i].classList.remove('important1');
         optionArea[i].classList.remove('important2');
@@ -140,12 +145,11 @@ function optionClicked(){
         resultText.textContent = `Your marks are ${score} out of ${questions.length}`;
         // console.log(resultText)
         disableOptions();
+        // console.log(score)
         for (let i = 0; i < optionArea.length; i++) {
             optionArea[i].removeEventListener('mouseover', hoverOnbtn);
         optionArea[i].removeEventListener('mouseout', mouseOut);
         }
-        
-        // console.log(score)
     }  
     else{
 
@@ -156,11 +160,14 @@ function optionClicked(){
         wrongSound.play();
 
         for (let i = 0 ; i<optionArea.length;i++){
+            optionArea[i].removeEventListener('mouseover', hoverOnbtn);
+        optionArea[i].removeEventListener('mouseout', mouseOut);
             if(optionArea[i].textContent === questions[questionIndex].answer){
                 optionArea[i].style.backgroundColor = 'green';
                 optionArea[i].style.color = 'white';
                 optionArea[i].innerHTML += ' ✔';
-                optionArea[i].classList.add('important1')
+                optionArea[i].classList.add('important1');
+
             }
         }
         disableOptions()
@@ -176,6 +183,10 @@ function disableOptions() {
     }
 }
 // console.log(score)
+for (let i = 0; i < optionArea.length; i++) {
+    optionArea[i].addEventListener('mouseover', hoverOnbtn);
+optionArea[i].addEventListener('mouseout', mouseOut);
+}
 
 function hoverOnbtn(){
     this.style.backgroundColor = '#16325B'
